@@ -44,7 +44,12 @@ const getProductDetails = async (
 
     // fetch inventory
     const { data: inventory } = await axios.get(
-      `${INVENTORY_URL}/inventories/${product.id}`
+      `${INVENTORY_URL}/inventories/${product.inventoryId}`,
+      {
+        headers: {
+          origin: "http://localhost:8081",
+        },
+      }
     );
 
     res.status(200).json({

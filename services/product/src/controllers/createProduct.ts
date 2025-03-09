@@ -35,7 +35,12 @@ const createProduct = async (
     // create inventory record for the product
     const { data: inventory } = await axios.post(
       `${INVENTORY_URL}/inventories`,
-      { productId: product.id, sku: product.sku }
+      { productId: product.id, sku: product.sku },
+      {
+        headers: {
+          origin: "http://localhost:8081",
+        },
+      }
     );
     console.log("Inventory created successfully", inventory.id);
 

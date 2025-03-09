@@ -16,7 +16,7 @@ const getProducts = async (req: Request, res: Response, next: NextFunction) => {
     // TODO: Implement pagination
     // TODO: Implement filtering
 
-    res.json({ products });
+    res.status(200).json({ products });
   } catch (error) {
     next(error);
   }
