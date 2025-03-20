@@ -2,12 +2,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express, { NextFunction, Request, Response } from "express";
 import morgan from "morgan";
-import {
-  userLogin,
-  userRegistration,
-  verifyEmail,
-  verifyToken,
-} from "./controllers";
+import { getEmails, sendEmail } from "./controllers";
 
 dotenv.config();
 
@@ -35,10 +30,8 @@ app.get("/health", (_req: Request, res: Response) => {
 // });
 
 // routes
-app.post("/auth/register", userRegistration);
-app.post("/auth/login", userLogin);
-app.post("/auth/verify-token", verifyToken);
-app.post("/auth/verify-email", verifyEmail);
+app.post("/emails/send", sendEmail);
+app.get("/emails", getEmails);
 
 // 404 handler
 app.use((_req: Request, res: Response) => {
@@ -51,8 +44,8 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
   res.status(500).json({ error: "Internal Server Error" });
 });
 
-const port = process.env.PORT || 4003;
-const serviceName = process.env.SERVICE_NAME || "Auth-Service";
+const port = process.env.PORT || 4005;
+const serviceName = process.env.SERVICE_NAME || "Email-Service";
 
 app.listen(port, () => {
   console.log(`${serviceName} is running on port ${port}`);
